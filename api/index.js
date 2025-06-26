@@ -89,7 +89,16 @@ app.post("/registered", async (req,res) => {
     res.send(err);
   }
 
-})
+});
+
+app.get('/messages', async (req, res) => {
+  const posts = await sql`
+    SELECT post.id, content, post_created_at, name_user
+    FROM post JOIN users ON post.username_id = users.id
+    ORDER BY post_created_at DESC`;
+  res.json(posts);
+});
+
 
 app.post("/posting", async (req, res) => {
   if (!req.session.loggedIn) return res.status(401).json({ error: 'Unauthorized' });
