@@ -85,7 +85,7 @@ app.post("/posting", async (req, res) => {
   res.redirect("/home");
 });
 
-app.post("/dev",(req,res) => {
+app.post("/home/dev",(req,res) => {
   if (!req.session.loggedIn) return res.redirect("/");
   res.render("dev");
 })

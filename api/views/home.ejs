@@ -53,18 +53,18 @@
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"> 
             <img src="./imglogo/iconlogo.png" width="150" alt="icon" class="imgicon">
         </a> 
-        <form action="/logout" method="post">
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <form action="/dev" method="post">
+                    <form action="/home/dev" method="post">
                         <button type="submit" class="nav-link hidbtn">About Developer</button>
                     </form>
                 </li> 
                 <li class="nav-item">
-                    <button type="submit" class="nav-link active">Log Out   </button>
+                    <form action="/logout" method="post">
+                        <button type="submit" class="nav-link active">Log Out   </button>
+                    </form>
                 </li> 
             </ul> 
-        </form>
     </header>
 
     <div class="row mb-3 text-center col-12 container-fluid"> 
