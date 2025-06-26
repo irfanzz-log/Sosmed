@@ -31,6 +31,12 @@ app.use(session({
   saveUninitialized: true
 }));
 
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Internal server error' });
+});
+
+
 let alert;
 
 app.get("/", (req, res) => {
