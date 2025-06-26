@@ -35,6 +35,9 @@ app.use(session({
   saveUninitialized: true
 }));
 
+
+app.get("/health", (req, res) => res.send("OK from Express"));
+
 app.get("/", async (req,res) => {
   if(req.session.loggedIn === true) {
     res.redirect("/home");
