@@ -44,7 +44,12 @@ app.post("/login", async (req, res) => {
     if (password === user.password) {
       req.session.loggedIn = true;
       req.session.userId = user.id;
-      res.redirect("/home");
+      req.session.save(err => {
+        if (err) {
+          return res.status(500).send("Session save error");
+        }
+        res.redirect("/home");
+      });
     }
 
   } catch (err) {
