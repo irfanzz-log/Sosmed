@@ -10,8 +10,8 @@
 <body>
     
 <main class="form-signin w-100 m-auto"> 
-    <form action="/login"> 
-        <img class="mb-4" src="../public/imglogo/iconlogo.png" alt="" width="72"> 
+    <form action="/login" method="post"> 
+        <img class="mb-4" src="./imglogo/iconlogo.png" alt="" width="72"> 
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1> 
         <div class="form-floating"> 
             <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="usernme"> 
@@ -28,7 +28,7 @@
         <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button> 
     </form> 
 
-    <form action="/regist">
+    <form action="/regist" method="get">
         <label class="form-check-label">Dont have an account?</label>
         <button class="btn btn-primary w-100 py-2" type="submit">Register</button> 
         <p class="mt-5 mb-3 text-body-secondary">©2025</p> 

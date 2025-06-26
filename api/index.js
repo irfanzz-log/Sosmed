@@ -47,6 +47,10 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.get("/resgist", (req,res) => {
+  req.session.loggedIn ? res.redirect("/home") : res.render("regist");
+})
+
 app.post("/regist", async (req,res) => {
   const { name,username, password } = req.body;
   try {
