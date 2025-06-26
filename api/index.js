@@ -48,10 +48,13 @@ app.post("/login", async (req, res) => {
 });
 
 app.get("/resgister", (req,res) => {
-  req.session.loggedIn ? res.redirect("/home") : res.render("regist.js");
+  if (req.session.loggedIn) {
+    return res.redirect("/home");
+  }
+  res.render("regist");
 })
 
-app.post("/regist", async (req,res) => {
+app.post("/registered", async (req,res) => {
   const { name,username, password } = req.body;
   try {
     if (username && password === "") {
