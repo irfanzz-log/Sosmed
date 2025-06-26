@@ -23,6 +23,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json()); // sebelum route
 
 app.use(session({
   secret: 'rahasia_login',
@@ -91,8 +92,7 @@ app.post("/registered", async (req,res) => {
 })
 
 app.post("/posting", async (req, res) => {
-  if (!req.session.loggedIn) return res.redirect("/");
-  
+  if (!req.session.loggedIn) return res.status(401).json({ error: 'Unauthorized' });
   const content = req.body.post;
   const userId = req.session.userId;
   
@@ -113,8 +113,7 @@ app.post("/posting", async (req, res) => {
 
   // Kirim ke Pusher
   pusher.trigger("posts", "new-post", post);
-  
-  res.redirect("/home");
+  res.status(200).json({ success: true });
 });
 
 
