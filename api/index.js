@@ -35,14 +35,11 @@ app.use(session({
   saveUninitialized: true
 }));
 
-
-app.get("/health", (req, res) => res.send("OK from Express"));
-
 app.get("/", async (req,res) => {
   if(req.session.loggedIn === true) {
     res.redirect("/home");
   } else {
-    res.render("index.ejs");
+    res.render("index");
   }
 });
 
@@ -50,7 +47,7 @@ app.get("/home", async (req,res) => {
   const result = await sql`SELECT * FROM users JOIN post ON username_id = users.id `;
   console.log(result)
   if(req.session.loggedIn === true ) {
-    res.render("home.ejs",{data:result});
+    res.render("home",{data:result});
   } else {
     res.redirect("/");
   }
