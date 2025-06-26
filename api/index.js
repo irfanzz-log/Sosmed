@@ -47,8 +47,8 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/resgist", (req,res) => {
-  req.session.loggedIn ? res.redirect("/home") : res.render("regist");
+app.get("/resgister", (req,res) => {
+  req.session.loggedIn ? res.redirect("/home") : res.render("regist.js");
 })
 
 app.post("/regist", async (req,res) => {
@@ -56,7 +56,7 @@ app.post("/regist", async (req,res) => {
   try {
     if (username && password === "") {
       alert = "Form tidak boleh kosong!";
-      return res.redirect("/regist");
+      return res.redirect("/register");
     }
 
     await sql`INSERT INTO users (name_user,username,password) VALUES (${name},${username},${password})`;
