@@ -42,11 +42,6 @@ app.post("/login", async (req, res) => {
       return res.redirect("/home");
     }
 
-    if (username && password === "") {
-      alert = "Username dan Password tidak boleh kosong!";
-      return res.redirect("/");
-    }
-
     if (password != user.password ) {
       alert = "Username atau Password Salah!";
       return res.redirect("/");
