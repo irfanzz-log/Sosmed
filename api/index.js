@@ -77,7 +77,7 @@ app.post("/posting", async (req, res) => {
   res.redirect("/home");
 });
 
-app.get("/logout", (req, res) => {
+app.post("/logout", (req, res) => {
   req.session.destroy(() => res.redirect("/"));
 });
 export default app;
