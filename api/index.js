@@ -32,6 +32,11 @@ app.get("/home", async (req, res) => {
   res.render("home", { data: result });
 });
 
+app.get("/login", (req,res) => {
+  if (req.session.loggedIn) return res.redirect("/home");
+  res.render("login", alert);
+});
+
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -48,6 +53,7 @@ app.post("/login", async (req, res) => {
 });
 
 app.get("/register", (req,res) => {
+  if (req.session.loggedIn) return res.redirect("/home");
   res.render("regist");
 })
 
