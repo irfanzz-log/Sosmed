@@ -20,6 +20,8 @@ app.use(session({
   saveUninitialized: true
 }));
 
+let alert;
+
 app.get("/", (req, res) => {
   req.session.loggedIn ? res.redirect("/home") : res.render("index");
 });
@@ -34,14 +36,42 @@ app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   try {
     const [user] = await sql`SELECT * FROM users WHERE username = ${username}`;
-    if (user && password === user.password) {
+    if (password === user.password) {
       req.session.loggedIn = true;
       req.session.userId = user.id;
       return res.redirect("/home");
     }
-  } catch (e) {}
-  res.redirect("/");
+
+    if (username && password === "") {
+      alert = "Username dan Password tidak boleh kosong!";
+      return res.redirect("/");
+    }
+
+    if (password != user.password ) {
+      alert = "Username atau Password Salah!";
+      return res.redirect("/");
+    }
+  } catch (err) {
+    res.send(err);
+  }
 });
+
+app.post("/regist", async (req,res) => {
+  const { name,username, password } = req.body;
+  try {
+    if (username && password === "") {
+      alert = "Form tidak boleh kosong!";
+      return res.redirect("/regist");
+    }
+
+    await sql`INSERT INTO users (name_user,username,password) VALUES (${name},${username},${password})`;
+    alert = "Pendaftaran Berhasil!";
+    return res.redirect("/");
+  } catch (err) {
+    res.send(err);
+  }
+
+})
 
 app.post("/posting", async (req, res) => {
   if (!req.session.loggedIn) return res.redirect("/");
@@ -51,6 +81,10 @@ app.post("/posting", async (req, res) => {
 
 app.get("/logout", (req, res) => {
   req.session.destroy(() => res.redirect("/"));
+});
+
+app.use((req, res) => {
+  res.status(404); // pastikan ada views/404.ejs
 });
 
 export default app;
