@@ -10,28 +10,55 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<style>
+    .nav {
+        margin-right: 10px;
+    }   
+    .imgicon {
+        margin-left: 10px;
+    }
+    .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+        background-color: #0089ff;
+    }
+    .nav-link.active:hover {
+        background-color: #0d6efd;
+    }
+    .nav-link {
+        color: #0089ff;
 
+    }
+    .btn-primary {
+        background-color: #0089ff;
+    }
+    .in {
+        outline-color: #0089ff;
+    }
+</style>
 </head>
 <body>
-    <div class="nav">
-        <form action="/logout" method="get">
-            <input class="logout" type="submit" value="log out">
+
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom container-fluid"> 
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"> 
+            <img src="./api/public/imglogo/iconlogo.png" width="150" alt="" class="imgicon">
+        </a> 
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a href="#" class="nav-link">About Developer</a>
+            </li> 
+            <li class="nav-item">
+                <a href="#" class="nav-link active">Log Out   </a>
+            </li> 
+        </ul> 
+    </header>
+
+    <div class="row mb-3 text-center col-12 container-fluid"> 
+        <form action="/posting" method="post">
+            <div class="col-12 align-items-center">
+                <input type="text" name="post" id="post" placeholder="Write here.." autofocus class="in mb-1 col-lg-8 col-md-6 col-sm-6 col-12">
+                <button type="submit" class="btn btn-primary col-lg-2 col-md-4 col-sm-6 col-12">Posting</button>
+            </div>
         </form>
     </div>
-    
-    
-    <div class="container">
-        <div class="contain">
-
-            
-            <!-- Mypostgres! -->
-            <div class="postform">
-                <form action="/posting" method="post">
-                    <input type="text" placeholder="tulis sesuatu" name="post" autofocus > 
-                    <button type="submit">posting</button>
-                </form>
-            </div>
-            
             
         </div>
     </div>

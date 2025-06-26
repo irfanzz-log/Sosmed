@@ -47,7 +47,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/resgister", (req,res) => {
+app.get("/register", (req,res) => {
   if (req.session.loggedIn) {
     return res.redirect("/home");
   }
