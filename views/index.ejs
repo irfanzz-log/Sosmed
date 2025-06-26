@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login</title>
+    <link rel="stylesheet" href="/style/main.css">
+</head>
+<body>
+    
+<div class="navbar">
+    <div class="nav">
+        <p>Irfanzzs.com</p>
+    </div>
+</div>
+
+    <% if(locals.alert){ %>
+        <p class="notice"><%= locals.alert %></p>
+    <% } %>
+<div class="contain-form">
+<div class="form">
+    <form action="/login" method="post">
+        
+            <label>Username : </label>
+            <input type="text" placeholder="username.." name="username">
+        
+            <label>Password : </label>
+            <input type="password" name="password" id="pass" placeholder="password..">
+        
+        <button id="loginbtn" type="submit">Login</button>
+    </form> 
+
+    <div class="regist">
+        <form action="/regist" method="get">
+            <p>If you doesn't have account regist here!</p>
+            <button id="registbtn" type="submit">Regist</button>
+        </form>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

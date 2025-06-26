@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Post</title>
+    <link rel="stylesheet" href="style/home.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="nav">
+        <form action="/logout" method="get">
+            <input class="logout" type="submit" value="log out">
+        </form>
+    </div>
+    
+    
+    <div class="container">
+        <div class="contain">
+
+            
+            <!-- Mypostgres! -->
+            <div class="postform">
+                <form action="/posting" method="post">
+                    <input type="text" placeholder="tulis sesuatu" name="post" autofocus > 
+                    <button type="submit">posting</button>
+                </form>
+            </div>
+
+            
+            <% if (data && data.length > 0) { %>
+                <% const sortData = data.sort((a,b)=> new Date(b.post_created_at) - new Date(a.post_created_at)) %>
+                <% sortData.forEach(post => { %>
+                    <div class="head"> <%= post.name_user %> </div>
+                  <div class="bodyContain">
+                    <p><%= post.content %></p>
+                    <small>Dibuat pada: <%= new Date(post.post_created_at).toLocaleString() %></small>
+                    <hr/>
+                  </div>
+                <% }) %>
+              <% } else { %>
+                <p>Tidak ada post yang tersedia.</p>
+              <% } %>
+            
+            
+        </div>
+    </div>
+    
+    
+</body>
+</html>

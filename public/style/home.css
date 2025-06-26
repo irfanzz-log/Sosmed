@@ -1,0 +1,68 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: "Noto Sans", sans-serif;
+}
+
+body {
+    background-color: #9DB2BF;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.contain {
+    width: 50%;
+    background-color: #27374D;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.head {
+    margin-top: 10px;
+    color: white;
+}
+
+.bodyContain {
+    background-color: white;
+    padding: 10px;
+}
+
+.date {
+    font-size: small;
+    color: rgba(128, 128, 128, 0.815);
+}
+
+.postform {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.postform form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.postform input {
+    width: 70%;
+    padding: 20px;
+}
+
+.postform button {
+    padding: 20px;
+}
+
+.logout {
+    padding: 10px;
+}
+
+.nav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}

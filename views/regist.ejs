@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login</title>
+    <link rel="stylesheet" href="style/main.css">
+</head>
+<body>
+    
+    <div class="navbar">
+        <div class="nav">
+            <p>Irfanzzs.com</p>
+        </div>
+    </div>
+
+<% if(locals.alert) { %>
+    <p class="<%= alert.status %>>"><%= alert.message %></p>
+<% } %>
+<div class="contain-form">
+    <div class="form">
+        
+        <form action="/registered" method="post">
+            <input type="text" placeholder="name" name="name">
+            <input type="text" placeholder="username" name="username">
+            <input type="password" name="password" id="pass" placeholder="password">
+            <button type="submit">Regist</button>
+        </form>
+        
+        <div class="regist">
+        <form action="/" method="get">
+            <p>If you have account login here!</p>
+            <button type="submit">Login</button>
+        </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
