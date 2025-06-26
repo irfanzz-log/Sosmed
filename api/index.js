@@ -42,10 +42,6 @@ app.post("/login", async (req, res) => {
       res.redirect("/home");
     }
 
-    if (password != user.password ) {
-      alert = "Username atau Password Salah!";
-      res.redirect("/");
-    }
   } catch (err) {
     res.send(err);
   }
@@ -77,9 +73,4 @@ app.post("/posting", async (req, res) => {
 app.get("/logout", (req, res) => {
   req.session.destroy(() => res.redirect("/"));
 });
-
-app.use((req, res) => {
-  res.status(404); // pastikan ada views/404.ejs
-});
-
 export default app;
