@@ -85,7 +85,7 @@
         <% const sortDate = data.sort((a,b)=> new Date(b.post_created_at) - new Date(a.post_created_at)) %>
         <% sortDate.forEach(post => { %>
             <div class="d-flex flex-column flex-md-row p-1 gap-4 py-md-1 align-items-center justify-content-center"> 
-                <div class="list-group"> 
+                <div class="list-group" id="postContainer"> 
                     <a class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true"> 
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
@@ -109,61 +109,34 @@
     
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 <script src="https://js.pusher.com/8.3.0/pusher.min.js"></script>
+<script src="https://js.pusher.com/8.3.0/pusher.min.js"></script>
 <script>
-    document.getElementById('postForm').addEventListener('submit', async function(e) {
-      e.preventDefault(); // hentikan reload
-      const content = document.getElementById('postInput').value;
-      if (!content) return;
-    
-      const res = await fetch('/posting', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ post: content })
-      });
-      if (res.ok) {
-        document.getElementById('postInput').value = '';
-        // Posting sudah dikirim, Pusher akan menangani update UI
-      } else {
-        console.error('Submit gagal');
-      }
-    });
-    </script>
-<script>
-  // Inisialisasi Pusher
-  Pusher.logToConsole = true;
-  const pusher = new Pusher('<%= process.env.PUSHER_KEY %>', {
-    cluster: '<%= process.env.PUSHER_CLUSTER %>',
-    forceTLS: true
-  });
+Pusher.logToConsole = true;
+const pusher = new Pusher('<%= process.env.PUSHER_KEY %>', { cluster:'<%= process.env.PUSHER_CLUSTER %>', forceTLS:true });
+const channel = pusher.subscribe('posts');
 
-  // Subscribe channel dan bind event
-  const channel = pusher.subscribe('posts');
-  channel.bind('new-post', post => {
-    const container = document.getElementById('postContainer');
-    if (!container) return;
+channel.bind('pusher:subscription_succeeded', () => {
+  fetch('/messages')
+    .then(r => r.json())
+    .then(posts => posts.forEach(appendPost));
+});
 
-    const html = `
-      <div class="list-group mb-3">
-        <a class="list-group-item list-group-item-action d-flex gap-3 py-3">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" 
-            class="bi bi-person-circle" viewBox="0 0 16 16">
-            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0 ..."/>
-          </svg>
-          <div class="d-flex gap-2 w-100 justify-content-between">
-            <div>
-              <h6 class="mb-0">${post.name_user}</h6>
-              <p class="mb-0 opacity-75 text-break">${post.content}</p>
-            </div>
-            <small class="opacity-50 text-nowrap">
-              ${new Date(post.post_created_at).toLocaleString()}
-            </small>
-          </div>
-        </a>
-      </div>`;
-    
-    container.insertAdjacentHTML('afterbegin', html);
-  });
+channel.bind('new-post', post => appendPost(post));
+
+function appendPost(post) {
+  const container = document.getElementById('postContainer');
+  const html = `…`; // koding elemen
+  container.insertAdjacentHTML('afterbegin', html);
+}
+
+// AJAX form submit
+document.getElementById('postForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const c = document.getElementById('postInput').value.trim();
+  if (!c) return;
+  await fetch('/posting', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ post:c }) });
+  document.getElementById('postInput').value = '';
+});
 </script>
 
 </body>
