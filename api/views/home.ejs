@@ -111,6 +111,7 @@
 <script src="https://js.pusher.com/8.3.0/pusher.min.js"></script>
 <script>
   // Inisialisasi Pusher
+  Pusher.logToConsole = true;
   const pusher = new Pusher('<%= process.env.PUSHER_KEY %>', {
     cluster: '<%= process.env.PUSHER_CLUSTER %>',
     forceTLS: true

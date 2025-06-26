@@ -102,6 +102,8 @@ app.post("/posting", async (req, res) => {
     RETURNING *;
   `;
 
+  console.log("Posting hit, body:", req.body);
+
   const post = {
     id: inserted.id,
     content: inserted.content,
