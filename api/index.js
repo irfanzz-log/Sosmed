@@ -39,12 +39,12 @@ app.post("/login", async (req, res) => {
     if (password === user.password) {
       req.session.loggedIn = true;
       req.session.userId = user.id;
-      return res.redirect("/home");
+      res.redirect("/home");
     }
 
     if (password != user.password ) {
       alert = "Username atau Password Salah!";
-      return res.redirect("/");
+      res.redirect("/");
     }
   } catch (err) {
     res.send(err);
