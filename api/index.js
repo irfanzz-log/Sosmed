@@ -34,7 +34,7 @@ app.get("/home", async (req, res) => {
 
 app.get("/login", (req,res) => {
   if (req.session.loggedIn) return res.redirect("/home");
-  res.render("login", alert);
+  res.render("index", alert);
 });
 
 app.post("/login", async (req, res) => {
