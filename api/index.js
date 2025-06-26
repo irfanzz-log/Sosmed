@@ -4,6 +4,16 @@ import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
 import session from "express-session";
 import sql from "../config/db.js"; // sesuaikan path jika config terpisah
+import Pusher from "pusher";
+
+const pusher = new Pusher({
+  appId:process.env.PUSHER_APP_ID,
+  key:process.env.PUSHER_KEY,
+  secret:process.env.PUSHER_SECRET,
+  cluster:process.env.PUSHER_CLUSTER,
+  useTLS:true
+});
+
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -44,6 +54,7 @@ app.post("/login", async (req, res) => {
     if (password === user.password) {
       req.session.loggedIn = true;
       req.session.userId = user.id;
+      req.session.username = user.username;
       req.session.save(err => {
         if (err) {
           return res.status(500).send("Session save error");
@@ -81,9 +92,29 @@ app.post("/registered", async (req,res) => {
 
 app.post("/posting", async (req, res) => {
   if (!req.session.loggedIn) return res.redirect("/");
-  await sql`INSERT INTO post (username_id, content) VALUES (${req.session.userId}, ${req.body.post})`;
+  
+  const content = req.body.post;
+  const userId = req.session.userId;
+  
+  const [inserted] = await sql`
+    INSERT INTO post (username_id, content)
+    VALUES (${userId}, ${content})
+    RETURNING *;
+  `;
+
+  const post = {
+    id: inserted.id,
+    content: inserted.content,
+    post_created_at: inserted.post_created_at,
+    name_user: req.session.username // atau ambil nama dari DB jika perlu
+  };
+
+  // Kirim ke Pusher
+  pusher.trigger("posts", "new-post", post);
+  
   res.redirect("/home");
 });
+
 
 app.post("/home/dev",(req,res) => {
   if (!req.session.loggedIn) return res.redirect("/");
