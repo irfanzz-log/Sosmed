@@ -1,33 +1,6 @@
-@media (prefers-color-scheme: dark) {
-    html, body {
-      background-color: white !important;
-      color: black !important;
-    }
-  
-    textarea, input, .form-control, .list-group-item, .btn, .nav-link {
-      background-color: white !important;
-      color: black !important;
-      border-color: #ccc !important;
-    }
-  
-    .nav-pills .nav-link.active {
-      background-color: #0089ff !important;
-      color: white !important;
-    }
-  }
-
-  html, body {
-    color-scheme: light !important;
-    background-color: white !important;
-    color: black !important;
-  }
-  
-  input, textarea, select, button, .form-control, .btn, .list-group-item {
-    background-color: white !important;
-    color: black !important;
-    border-color: #ccc !important;
-    box-shadow: none !important;
-    outline: none !important;
-    caret-color: black;
+:root, html, body {
+    color-scheme: only light !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
   }
   
