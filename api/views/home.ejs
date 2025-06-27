@@ -12,64 +12,84 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <style>
+    /* === Navigasi dan Header === */
     .nav {
-        margin-right: 10px;
-    }   
-    .imgicon {
-        margin-left: 10px;
+    margin-right: 10px;
     }
-    .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-        color: white !important;
-        background-color: #0089ff !important;
-    }
-    .nav-link.active:hover {
-        background-color: #0d6efd !important;
-    }
-    .nav-link {
-        color: #0089ff !important;
 
+    .imgicon {
+    margin-left: 10px;
     }
+
+    /* === Warna link navigasi aktif === */
+    .nav-pills .nav-link.active,
+    .nav-pills .show > .nav-link {
+    color: white !important;
+    background-color: #0089ff !important;
+    }
+
+    .nav-link.active:hover {
+    background-color: #0d6efd !important;
+    }
+
+    .nav-link {
+    color: #0089ff !important;
+    }
+
+    /* === Tombol === */
     .btn-primary {
-        background-color: #0089ff;
+    background-color: #0089ff;
     }
-    .in {
-        border: 0.5px solid #0089ff !important;
-        outline-color: #0089ff !important;
-        border-radius: 2px;
-    }
-    .list-group-item {
-        border: 1px solid #0089ff !important;
-    }
-    .con {
-        margin-left: 2%;
-    }
-    .hidbtn {
-        background-color: none;
-        background: none;
-    }
-    .Author {
-        color: rgb(236, 98, 98);
-        fill: rgb(236, 98, 98);
-        border: 0.5px solid rgb(236, 98, 98);
-    }
-    .postIn {
-        margin-left: 1px;
-    }
-    .gIn {
-        padding-top: 5px;
-    }
+
     .btn-gin {
-        background-color: #0089ff !important;
-        color: white !important;
+    background-color: #0089ff !important;
+    color: white !important;
+    }
+
+    .hidbtn {
+    background: none;
+    border: none;
+    }
+
+    /* === Input dan Textarea === */
+    .in {
+    border: 0.5px solid #0089ff !important;
+    outline-color: #0089ff !important;
+    border-radius: 2px;
+    }
+
+    .gIn {
+    padding-top: 5px;
     }
 
     textarea {
-        width: 100%;
-        min-height: 50px;
-        padding: 8px;
-        resize: none; /* Supaya tidak bisa resize manual */
-        overflow: hidden; /* Hindari scrollbar */
+    width: 100%;
+    min-height: 50px;
+    padding: 8px;
+    resize: none;        /* Nonaktifkan resize manual */
+    overflow: hidden;    /* Sembunyikan scrollbar */
     }
+
+    /* === Komponen Konten / Postingan === */
+    .list-group-item {
+    border: 1px solid #0089ff !important;
+    }
+
+    .Author {
+    color: rgb(236, 98, 98);
+    fill: rgb(236, 98, 98);
+    border: 0.5px solid rgb(236, 98, 98);
+    }
+
+    /* === Layout Penyesuaian === */
+    .postIn {
+    margin-left: 1px;
+    }
+
+    .con {
+    margin-left: 2%;
+    }
+
 </style>
 </head>
 <body>
