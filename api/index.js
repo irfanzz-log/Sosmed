@@ -68,14 +68,15 @@ app.get("/login", (req,res) => {
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   try {
-    const [user] = await sql`SELECT * FROM users WHERE username = ${username}`;
+    const [user] = await sql`SELECT * FROM users WHERE username ILIKE ${username}`;
+    const userData = user[0];
 
     if (!user) return res.send("User tidak ditemukan");
     if (password !== user.password) return res.send("Password salah");
 
     req.session.loggedIn = true;
-    req.session.userId = user.id;
-    req.session.username = user.username;
+    req.session.userId = userData.id;
+    req.session.username = userData.username;
 
     req.session.save(err => {
       if (err) return res.status(500).send("Gagal menyimpan session");
@@ -98,7 +99,7 @@ app.post("/registered", async (req, res) => {
 
   try {
     // Cek apakah ada yang kosong
-    if (!name || !username || !password) {
+    if (!name?.trim() || !username?.trim() || !password?.trim()) {
       alert = "Form tidak boleh kosong!";
       return res.redirect("/register");
     }
