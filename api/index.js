@@ -69,14 +69,13 @@ app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   try {
     const [user] = await sql`SELECT * FROM users WHERE username ${username}`;
-    const userData = user[0];
 
-    if (!userData) return res.send("User tidak ditemukan");
-    if (password !== userData.password) return res.send("Password salah");
+    if (!user) return res.send("User tidak ditemukan");
+    if (password !== user.password) return res.send("Password salah");
 
     req.session.loggedIn = true;
-    req.session.userId = userData.id;
-    req.session.username = userData.username;
+    req.session.userId = user.id;
+    req.session.username = user.username;
 
     req.session.save(err => {
       if (err) return res.status(500).send("Gagal menyimpan session");
@@ -106,8 +105,7 @@ app.post("/registered", async (req, res) => {
 
     // Cek apakah username sudah ada
     const [user] = await sql`SELECT * FROM users WHERE username = ${username}`;
-    const userData = user[0];
-    if (userData) {
+    if (user) {
       alert = "Username sudah didaftarkan!";
       return res.redirect("/register");
     }
