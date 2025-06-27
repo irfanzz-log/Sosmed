@@ -186,6 +186,17 @@
     textarea.style.height = "auto"; // Reset height dulu
     textarea.style.height = textarea.scrollHeight + "px"; // Sesuaikan dengan isi
   });
+
+   // Paksa scheme terang via tag <meta> di runtime (fallback JS)
+   const meta = document.querySelector('meta[name="color-scheme"]');
+  if (!meta) {
+    const m = document.createElement('meta');
+    m.name = 'color-scheme';
+    m.content = 'light only';
+    document.head.appendChild(m);
+  } else {
+    meta.content = 'light only';
+  }
 </script>
 
   
