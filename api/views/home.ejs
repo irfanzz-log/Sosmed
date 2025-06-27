@@ -107,48 +107,5 @@
 
     
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-<script src="https://js.pusher.com/8.3.0/pusher.min.js"></script>
-<script src="https://js.pusher.com/8.3.0/pusher.min.js"></script>
-<script>
-    Pusher.logToConsole = true;
-    const pusher = new Pusher('<%= process.env.PUSHER_KEY %>', {
-      cluster: '<%= process.env.PUSHER_CLUSTER %>',
-      forceTLS: true
-    });
-    const channel = pusher.subscribe('posts');
-  
-    channel.bind('pusher:subscription_succeeded', () => {
-      fetch('/messages')
-        .then(r => r.json())
-        .then(posts => posts.forEach(appendPost))
-        .catch(err => console.error('Fetch messages failed:', err));
-    });
-  
-    channel.bind('new-post', post => appendPost(post));
-  
-    function appendPost(post) {
-      const container = document.getElementById('postContainer');
-      const html = `
-        <div class="list-group mb-3">
-          <a class="list-group-item d-flex gap-3 py-3">
-            <strong>${post.name_user}</strong>: ${post.content}
-            <small class="text-muted ms-auto">${new Date(post.post_created_at).toLocaleString()}</small>
-          </a>
-        </div>`;
-      container.insertAdjacentHTML('afterbegin', html);
-    }
-  
-    document.getElementById('postForm').addEventListener('submit', async e => {
-      e.preventDefault();
-      const c = document.getElementById('postInput').value.trim();
-      if (!c) return;
-      await fetch('/posting', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ post: c })
-      });
-      postInput.value = '';
-    });
-  </script>
 </body>
 </html>

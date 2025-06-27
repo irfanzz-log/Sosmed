@@ -97,42 +97,19 @@ app.post("/registered", async (req,res) => {
 
 });
 
-app.get('/messages', async (req, res) => {
-  const posts = await sql`
-    SELECT post.id_post AS id, content, post_created_at, name_user
-    FROM post
-    JOIN users ON post.username_id = users.id
-    ORDER BY post_created_at DESC
-  `;
-  res.json(posts);
-});
-
-
 app.post("/posting", async (req, res) => {
   if (!req.session.loggedIn) return res.status(401).json({ error: 'Unauthorized' });
   const content = req.body.post;
   const userId = req.session.userId;
   
-  const [inserted] = await sql`
+    await sql`
     INSERT INTO post (username_id, content)
     VALUES (${userId}, ${content})
     RETURNING *;
   `;
 
-  console.log("Posting hit, body:", req.body);
-
-  const post = {
-    id: inserted.id,
-    content: inserted.content,
-    post_created_at: inserted.post_created_at,
-    name_user: req.session.username // atau ambil nama dari DB jika perlu
-  };
-
-  // Kirim ke Pusher
-  pusher.trigger("posts", "new-post", post);
-  res.status(200).json({ success: true });
+  res.redirect("/home");
 });
-
 
 app.post("/home/dev",(req,res) => {
   if (!req.session.loggedIn) return res.redirect("/");
