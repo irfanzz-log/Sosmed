@@ -58,7 +58,6 @@ app.get("/home", async (req, res) => {
 
 app.post("/login", async (req, res) => {
   if (req.session.loggedIn) return res.redirect("/home");
-  if (!req.session.loggedIn) return res.redirect("/");
   const { username, password } = req.body;
   try {
     const [user] = await sql`SELECT * FROM users WHERE username = ${username}`;
