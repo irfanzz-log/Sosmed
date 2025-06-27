@@ -9,9 +9,4 @@
       background-color: white !important;
       color: black !important;
     }
-  
-    * {
-      background-color: inherit !important;
-      color: inherit !important;
-    }
 }
