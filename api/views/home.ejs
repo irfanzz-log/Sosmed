@@ -111,11 +111,8 @@
 <script src="https://js.pusher.com/8.3.0/pusher.min.js"></script>
 <script>
   Pusher.logToConsole = true;
-  const pusher = new Pusher('<%= process.env.PUSHER_KEY %>', {
-    cluster: '<%= process.env.PUSHER_CLUSTER %>',
-    forceTLS: true
-  });
-  const channel = pusher.subscribe('posts');
+  const pusher = new Pusher("YOUR_APP_KEY", { cluster: "ap1" });
+  const channel = pusher.subscribe("posts");
 
   channel.bind('pusher:subscription_succeeded', () => {
     fetch('/messages')
@@ -127,7 +124,7 @@
       .catch(err => console.error('Fetch messages failed:', err));
   });
 
-  channel.bind('new-post', appendPost);
+  channel.bind("new-post", appendPost);
 
   function appendPost(post) {
     const container = document.getElementById('postContainer');
@@ -155,7 +152,5 @@
     inputEl.value = '';
   });
 </script>
-
-
 </body>
 </html>

@@ -36,22 +36,6 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal server error' });
 });
 
-const channel = pusher.subscribe('posts');
-channel.bind('pusher:subscription_succeeded', () => {
-  console.log('Subscribed → siap menerima event');
-  // Sekalian bisa load chat history
-});
-
-channel.bind('new-post', appendPost);
-
-channel.bind('pusher:subscription_succeeded', () => {
-  console.log('Subscribed → siap menerima event');
-  // Sekalian bisa load chat history
-});
-
-channel.bind('new-post', appendPost);
-
-
 let alert;
 
 app.get("/", (req, res) => {
