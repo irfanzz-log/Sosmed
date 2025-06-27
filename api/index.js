@@ -58,6 +58,7 @@ app.get("/home", async (req, res) => {
 
 app.post("/login", async (req, res) => {
   if (req.session.loggedIn) return res.redirect("/home");
+  if (!req.session.loggedIn) return res.redirect("/");
   const { username, password } = req.body;
   try {
     const [user] = await sql`SELECT * FROM users WHERE username = ${username}`;
@@ -126,7 +127,9 @@ app.post("/posting", async (req, res) => {
   if (!req.session.loggedIn) return res.status(401).json({ error: 'Unauthorized' });
   const content = req.body.post;
   const userId = req.session.userId;
-  
+  if (!content?.trim()) {
+    return res.redirect("/home");
+  }
     await sql`
     INSERT INTO post (username_id, content)
     VALUES (${userId}, ${content})
