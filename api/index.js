@@ -99,6 +99,11 @@ app.post("/registered", async (req,res) => {
     if (username && password === "") {
       alert = "Form tidak boleh kosong!";
       return res.redirect("/register");
+    } 
+    const [user] = await sql`SELECT * FROM users WHERE username = ${username}`;
+
+    if (username === user.username) {
+      alert = "Username sudah didaftarkan"
     }
 
     await sql`INSERT INTO users (name_user,username,password) VALUES (${name},${username},${password})`;
