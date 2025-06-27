@@ -45,8 +45,12 @@ app.get("/home", async (req, res) => {
 });
 
 app.get("/login", (req,res) => {
-  if (req.session.loggedIn) {res.redirect("/home")};
-  res.render("index", alert);
+  try {
+    if (req.session.loggedIn) {res.redirect("/home")};
+    res.render("index", alert);
+  } catch (err) {
+    res.send(err);
+  }
 });
 
 app.post("/login", async (req, res) => {
@@ -102,15 +106,7 @@ app.post("/posting", async (req, res) => {
     VALUES (${userId}, ${content})
     RETURNING *;
   `;
-
-  io.emit("dataSubmitted");
-
-  res.status(200).send("Data berhasil dikirim");
   res.redirect("/home");
-});
-
-io.on("connection", (socket) => {
-  console.log("Client terhubung:", socket.id);
 });
 
 app.post("/home/dev",(req,res) => {
