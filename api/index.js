@@ -131,4 +131,9 @@ app.post("/home/dev",(req,res) => {
 app.post("/logout", (req, res) => {
   req.session.destroy(() => res.redirect("/"));
 });
+
+app.use((req, res, next) => {
+  res.status(404).render("404"); // file 404.ejs
+});
+
 export default app;
