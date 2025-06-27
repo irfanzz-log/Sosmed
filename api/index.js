@@ -106,7 +106,8 @@ app.post("/registered", async (req, res) => {
 
     // Cek apakah username sudah ada
     const [user] = await sql`SELECT * FROM users WHERE username = ${username}`;
-    if (user) {
+    const userData = user[0];
+    if (userData) {
       alert = "Username sudah didaftarkan!";
       return res.redirect("/register");
     }
