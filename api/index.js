@@ -37,7 +37,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal server error' });
 });
 
-let alert;
+let alert = "";
 
 app.get("/", (req, res) => {
   req.session.loggedIn ? res.redirect("/home") : res.render("index");
@@ -90,7 +90,7 @@ app.post("/login", async (req, res) => {
 
 app.get("/register", (req,res) => {
   if (req.session.loggedIn) return res.redirect("/home");
-  res.render("regist",alert);
+  res.render("regist",{alert:alert});
 })
 
 app.post("/registered", async (req,res) => {
