@@ -7,7 +7,7 @@
     <meta name="color-scheme" content="light">
     <title>Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="/style/global.css">
+    <link rel="stylesheet" href="./style/global.css">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -92,14 +92,28 @@
             </ul> 
     </header>
 
-    <div class="row mb-3 text-center col-12 container-fluid postIn"> 
-        <form action="/posting" method="post" id="postForm">
-            <div class="col-12 align-items-center">
-                <textarea type="text" name="post" id="postInput" placeholder="Write here.." autofocus class="in gIn mb-1 col-lg-8 col-md-6 col-sm-6 col-12"></textarea>
-                <button type="submit" class="btn btn-gin gIn btn-primary col-lg-2 col-md-4 col-sm-6 col-12">Posting</button>
-            </div>
+    <div class="container-fluid postIn my-3">
+        <form action="/posting" method="post" id="postForm" class="row justify-content-center">
+          <div class="col-lg-9 col-md-8 col-sm-12 mb-2">
+            <textarea
+              name="post"
+              id="postInput"
+              placeholder="Write here.."
+              autofocus
+              class="form-control"
+              rows="3"
+            ></textarea>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-12">
+            <button
+              type="submit"
+              class="btn btn-primary w-100 h-100"
+            >
+              Posting
+            </button>
+          </div>
         </form>
-    </div>
+      </div>
             
         </div>
     </div>
