@@ -60,7 +60,7 @@ app.post("/login", async (req, res) => {
   if (req.session.loggedIn) return res.redirect("/home");
   const { username, password } = req.body;
   try {
-    const [user] = await sql`SELECT * FROM users WHERE username ${username}`;
+    const [user] = await sql`SELECT * FROM users WHERE username = ${username}`;
 
     if (!user) return res.send("User tidak ditemukan");
     if (password !== user.password) return res.send("Password salah");
