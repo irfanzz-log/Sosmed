@@ -111,49 +111,44 @@
 <script src="https://js.pusher.com/8.3.0/pusher.min.js"></script>
 <script>
     Pusher.logToConsole = true;
-  const pusher = new Pusher('<%= process.env.PUSHER_KEY %>', {
-    cluster: '<%= process.env.PUSHER_CLUSTER %>',  // penting!
-    forceTLS: true
-  });
-  const channel = pusher.subscribe("posts");
-
-  channel.bind('pusher:subscription_succeeded', () => {
-    fetch('/messages')
-      .then(r => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-      })
-      .then(posts => posts.forEach(appendPost))
-      .catch(err => console.error('Fetch messages failed:', err));
-  });
-
-  channel.bind("new-post", appendPost);
-
-  function appendPost(post) {
-    const container = document.getElementById('postContainer');
-    if (!container) return;
-    const html = `
-      <div class="list-group mb-3">
-        <a class="list-group-item d-flex gap-3 py-3">
-          <strong>${post.name_user}</strong>: ${post.content}
-          <small class="text-muted ms-auto">${new Date(post.post_created_at).toLocaleString()}</small>
-        </a>
-      </div>`;
-    container.insertAdjacentHTML('afterbegin', html);
-  }
-
-  const inputEl = document.getElementById('postInput');
-  document.getElementById('postForm').addEventListener('submit', async e => {
-    e.preventDefault();
-    const content = inputEl.value.trim();
-    if (!content) return;
-    await fetch('/posting', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ post: content })
+    const pusher = new Pusher('<%= process.env.PUSHER_KEY %>', {
+      cluster: '<%= process.env.PUSHER_CLUSTER %>',
+      forceTLS: true
     });
-    inputEl.value = '';
-  });
-</script>
+    const channel = pusher.subscribe('posts');
+  
+    channel.bind('pusher:subscription_succeeded', () => {
+      fetch('/messages')
+        .then(r => r.json())
+        .then(posts => posts.forEach(appendPost))
+        .catch(err => console.error('Fetch messages failed:', err));
+    });
+  
+    channel.bind('new-post', post => appendPost(post));
+  
+    function appendPost(post) {
+      const container = document.getElementById('postContainer');
+      const html = `
+        <div class="list-group mb-3">
+          <a class="list-group-item d-flex gap-3 py-3">
+            <strong>${post.name_user}</strong>: ${post.content}
+            <small class="text-muted ms-auto">${new Date(post.post_created_at).toLocaleString()}</small>
+          </a>
+        </div>`;
+      container.insertAdjacentHTML('afterbegin', html);
+    }
+  
+    document.getElementById('postForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const c = document.getElementById('postInput').value.trim();
+      if (!c) return;
+      await fetch('/posting', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ post: c })
+      });
+      postInput.value = '';
+    });
+  </script>
 </body>
 </html>

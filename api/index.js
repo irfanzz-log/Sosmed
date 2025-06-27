@@ -98,19 +98,13 @@ app.post("/registered", async (req,res) => {
 });
 
 app.get('/messages', async (req, res) => {
-  try {
-    const posts = await sql`
-      SELECT content, post_created_at, name_user
-      FROM post
-      JOIN users ON post.username_id = users.id
-      ORDER BY post_created_at DESC
-    `;
-    console.log(`Fetched ${posts.length} messages`);
-    res.json(posts);
-  } catch (err) {
-    console.error('🔥 Error GET /messages:', err);
-    res.status(500).json({ error: 'Error mengambil pesan' });
-  }
+  const posts = await sql`
+    SELECT post.id_post AS id, content, post_created_at, name_user
+    FROM post
+    JOIN users ON post.username_id = users.id
+    ORDER BY post_created_at DESC
+  `;
+  res.json(posts);
 });
 
 
