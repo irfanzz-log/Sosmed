@@ -106,12 +106,13 @@ app.post("/registered", async (req,res) => {
       alert = "Username sudah didaftarkan"
       await sql`INSERT INTO users (name_user,username,password) VALUES (${name},${username},${password})`;
       alert = "Pendaftaran Berhasil!";
-      res.redirect("/");
+      res.redirect("/register");
     }
-  } catch (err) {
-    console.log(res.send(err));
     alert = "username sudah ada!";
     res.redirect("/");
+  } catch (err) {
+    console.log(res.send(err));
+    res.redirect("/register");
   }
 
 });
