@@ -24,6 +24,22 @@
       box-shadow: none !important;
     }
 
+    .list-group-item {
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.list-group-item:hover {
+  transform: translateY(-3px);
+  background-color: #e7f3ff !important;
+  cursor: pointer;
+}
+
+/* Hover khusus untuk post yang memiliki class "Author" */
+.Author.list-group-item:hover {
+  background-color: #e0e0e0 !important; /* abu-abu terang */
+  transform: translateY(-3px);
+}
+
     .imgicon {
       margin-left: 10px;
     }
