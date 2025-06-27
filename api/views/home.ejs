@@ -107,5 +107,19 @@
 
     
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js'
+  const supabase = createClient('https://mwpspfuwsqpfpxnqkvbp.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im13cHNwZnV3c3FwZnB4bnFrdmJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA3NTI0MjcsImV4cCI6MjA2NjMyODQyN30.72qyhKiPs6ZnXJLZqWu7_vCiGyfYys5kDpHFSxgI8N8');
+  supabase
+    .channel('realtime-posts')
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'post' }, (payload) => {
+      console.log('data baru:', payload);
+      window.location.reload();
+    })
+    .subscribe();
+</script>
+
+  
 </body>
 </html>
