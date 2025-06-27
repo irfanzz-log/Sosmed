@@ -12,6 +12,23 @@
         body {
             overflow-x: hidden !important;
         }
+        @media (prefers-color-scheme: dark) {
+    html, body {
+      background-color: white !important;
+      color: black !important;
+    }
+  
+    textarea, input, .form-control, .list-group-item, .btn, .nav-link {
+      background-color: white !important;
+      color: black !important;
+      border-color: #ccc !important;
+    }
+  
+    .nav-pills .nav-link.active {
+      background-color: #0089ff !important;
+      color: white !important;
+    }
+  }
     </style>
 </head>
 <body class="vh-100 d-flex justify-content-center align-items-center bg-body-tertiary">
