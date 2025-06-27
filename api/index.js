@@ -4,18 +4,13 @@ import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
 import session from "express-session";
 import sql from "../config/db.js"; // sesuaikan path jika config terpisah
-import Pusher from "pusher";
-
-const pusher = new Pusher({
-  appId:process.env.PUSHER_APP_ID,
-  key:process.env.PUSHER_KEY,
-  secret:process.env.PUSHER_SECRET,
-  cluster:process.env.PUSHER_CLUSTER,
-  useTLS:true
-});
+import http from "http";
+import { Server } from "socket.io";
 
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -50,7 +45,7 @@ app.get("/home", async (req, res) => {
 });
 
 app.get("/login", (req,res) => {
-  if (req.session.loggedIn) return res.redirect("/home");
+  if (req.session.loggedIn) {res.redirect("/home")};
   res.render("index", alert);
 });
 
@@ -108,7 +103,14 @@ app.post("/posting", async (req, res) => {
     RETURNING *;
   `;
 
+  io.emit("dataSubmitted");
+
+  res.status(200).send("Data berhasil dikirim");
   res.redirect("/home");
+});
+
+io.on("connection", (socket) => {
+  console.log("Client terhubung:", socket.id);
 });
 
 app.post("/home/dev",(req,res) => {
