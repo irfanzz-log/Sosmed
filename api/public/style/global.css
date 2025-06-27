@@ -4,3 +4,15 @@
     color: #000000 !important;
   }
   
+.navbar,
+textarea,
+input,
+.form-control,
+.card,
+.list-group-item,
+.nav-link,
+.btn {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: #ccc !important;
+}
