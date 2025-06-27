@@ -18,6 +18,7 @@
         margin-left: 10px;
     }
     .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+        color: white !important;
         background-color: #0089ff !important;
     }
     .nav-link.active:hover {
@@ -50,6 +51,9 @@
         fill: rgb(236, 98, 98);
         border: 0.5px solid rgb(236, 98, 98);
     }
+    .postIn {
+        margin-left: 1px;
+    }
     .gIn {
         padding-top: 5px;
     }
@@ -75,7 +79,7 @@
             </ul> 
     </header>
 
-    <div class="row mb-3 text-center col-12 container-fluid"> 
+    <div class="row mb-3 text-center col-12 container-fluid postIn"> 
         <form action="/posting" method="post" id="postForm">
             <div class="col-12 align-items-center">
                 <input type="text" name="post" id="postInput" placeholder="Write here.." autofocus class="in gIn mb-1 col-lg-8 col-md-6 col-sm-6 col-12">
