@@ -16,6 +16,7 @@ const pusher = new Pusher({
 
 
 const app = express();
+app.use(express.json()); // sebelum route
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -23,7 +24,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json()); // sebelum route
+
 
 app.use(session({
   secret: 'rahasia_login',
@@ -96,12 +97,19 @@ app.post("/registered", async (req,res) => {
 
 });
 
-app.get('/messages', async (req, res) => {
-  const posts = await sql`
-    SELECT post.id, content, post_created_at, name_user
-    FROM post JOIN users ON post.username_id = users.id
-    ORDER BY post_created_at DESC`;
-  res.json(posts);
+app.get('/messages', async (req, res, next) => {
+  try {
+    const posts = await sql`
+      SELECT post.id, content, post_created_at, name_user
+      FROM post JOIN users ON post.username_id = users.id
+      ORDER BY post_created_at DESC
+    `;
+    console.log(`GET /messages → fetched ${posts.length} records`);
+    res.json(posts);
+  } catch (err) {
+    console.error('🔥 Error GET /messages:', err);
+    res.status(500).json({ error: 'Server error when reading messages' });
+  }
 });
 
 
