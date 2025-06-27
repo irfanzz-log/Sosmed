@@ -5,9 +5,11 @@ import bodyParser from "body-parser";
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
 import pg from "pg";
+import { inject } from '@vercel/analytics';
 import sql from "../config/db.js"; // sesuaikan path jika config terpisah
 
-
+ 
+inject();
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
