@@ -102,13 +102,15 @@ app.post("/registered", async (req,res) => {
     } 
     const [user] = await sql`SELECT * FROM users WHERE username = ${username}`;
 
-    if (username === user.username) {
+    if (!username === user.username) {
       alert = "Username sudah didaftarkan"
+      await sql`INSERT INTO users (name_user,username,password) VALUES (${name},${username},${password})`;
+      alert = "Pendaftaran Berhasil!";
+      res.redirect("/");
     }
 
-    await sql`INSERT INTO users (name_user,username,password) VALUES (${name},${username},${password})`;
-    alert = "Pendaftaran Berhasil!";
-    return res.redirect("/");
+    alert = "Username sudah ada!"
+    res.redirect("/register");
   } catch (err) {
     res.send(err);
   }
