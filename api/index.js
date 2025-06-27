@@ -93,29 +93,39 @@ app.get("/register", (req,res) => {
   res.render("regist",{alert:alert});
 })
 
-app.post("/registered", async (req,res) => {
-  const { name,username, password } = req.body;
+app.post("/registered", async (req, res) => {
+  const { name, username, password } = req.body;
+
   try {
-    if (username && password === "") {
+    // Cek apakah ada yang kosong
+    if (!name || !username || !password) {
       alert = "Form tidak boleh kosong!";
       return res.redirect("/register");
-    } 
-    const [user] = await sql`SELECT * FROM users WHERE username = ${username}`;
-
-    if (!username === user.username) {
-      alert = "Username sudah didaftarkan"
-      await sql`INSERT INTO users (name_user,username,password) VALUES (${name},${username},${password})`;
-      alert = "Pendaftaran Berhasil!";
-      res.redirect("/register");
     }
-    alert = "username sudah ada!";
-    res.redirect("/");
-  } catch (err) {
-    console.log(res.send(err));
-    res.redirect("/register");
-  }
 
+    // Cek apakah username sudah ada
+    const [user] = await sql`SELECT * FROM users WHERE username = ${username}`;
+    if (user) {
+      alert = "Username sudah didaftarkan!";
+      return res.redirect("/register");
+    }
+
+    // Insert user baru
+    await sql`
+      INSERT INTO users (name_user, username, password)
+      VALUES (${name}, ${username}, ${password})
+    `;
+
+    alert = "Pendaftaran Berhasil!";
+    return res.redirect("/");
+    
+  } catch (err) {
+    console.error("Register error:", err);
+    alert = "Terjadi kesalahan saat daftar.";
+    return res.redirect("/register");
+  }
 });
+
 
 app.post("/posting", async (req, res) => {
   if (!req.session.loggedIn) return res.status(401).json({ error: 'Unauthorized' });
