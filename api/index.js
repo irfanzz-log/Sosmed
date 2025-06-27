@@ -64,11 +64,13 @@ app.post("/login", async (req, res) => {
 
     if (!user) return res.send("User tidak ditemukan");
     if (password !== user.password) return res.send("Password salah");
-    if (password === user.password) return res.redirect("/home");
+    
 
     req.session.loggedIn = true;
     req.session.userId = user.id;
     req.session.username = user.username;
+
+    if (password === user.password) return res.redirect("/home");
 
     req.session.save(err => {
       if (err) return res.status(500).send("Gagal menyimpan session");
