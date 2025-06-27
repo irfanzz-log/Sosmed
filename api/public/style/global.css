@@ -2,14 +2,6 @@
     color-scheme: light;
   }
 
-  textarea {
-    width: 100%;
-    min-height: 50px;
-    padding: 8px;
-    resize: none; /* Supaya tidak bisa resize manual */
-    overflow: hidden; /* Hindari scrollbar */
-  }
-
   html, body {
     background-color: white !important;
     color: black !important;
