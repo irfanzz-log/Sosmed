@@ -68,11 +68,11 @@ app.get("/login", (req,res) => {
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   try {
-    const [user] = await sql`SELECT * FROM users WHERE username ILIKE ${username}`;
+    const [user] = await sql`SELECT * FROM users WHERE username ${username}`;
     const userData = user[0];
 
-    if (!user) return res.send("User tidak ditemukan");
-    if (password !== user.password) return res.send("Password salah");
+    if (!userData) return res.send("User tidak ditemukan");
+    if (password !== userData.password) return res.send("Password salah");
 
     req.session.loggedIn = true;
     req.session.userId = userData.id;
