@@ -108,11 +108,10 @@ app.post("/registered", async (req,res) => {
       alert = "Pendaftaran Berhasil!";
       res.redirect("/");
     }
-
-    alert = "Username sudah ada!"
-    res.redirect("/register");
   } catch (err) {
-    res.send(err);
+    console.log(res.send(err));
+    alert = "username sudah ada!";
+    res.redirect("/");
   }
 
 });
