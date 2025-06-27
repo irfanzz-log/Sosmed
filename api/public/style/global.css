@@ -16,7 +16,3 @@ input,
   color: #000000 !important;
   border-color: #ccc !important;
 }
-
-.list-group :hover {
-    background-color: rgb(95, 95, 95);
-}
