@@ -1,0 +1,17 @@
+@media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: light;
+      background-color: white;
+      color: black;
+    }
+  
+    body {
+      background-color: white !important;
+      color: black !important;
+    }
+  
+    * {
+      background-color: inherit !important;
+      color: inherit !important;
+    }
+}
