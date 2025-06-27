@@ -1,6 +1,16 @@
-body {
+:root {
+    color-scheme: light;
+  }
+
+  html, body {
     background-color: white !important;
-}
+    color: black !important;
+  }
+  
+  input, textarea, select {
+    background-color: white !important;
+    color: black !important;
+  }
 
 @media (prefers-color-scheme: dark) {
     :root {
@@ -12,10 +22,5 @@ body {
     body {
       background-color: white !important;
       color: black !important;
-    }
-  
-    * {
-      background-color: inherit !important;
-      color: inherit !important;
     }
 }
